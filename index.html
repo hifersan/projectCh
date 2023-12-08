@@ -1,1 +1,33 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Run Python File</title>
+</head>
+<body>
+  <a href="#" id="runPython">Run Python File</a>
+
+  <script>
+    document.getElementById('runPython').addEventListener('click', function(event) {
+      event.preventDefault();
+      // Make an AJAX request to trigger the server-side Python execution
+      fetch('/runcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ filename: 'your_python_file.py' }) // Replace with your Python file name
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Python file executed successfully!');
+        } else {
+          console.error('Error executing Python file:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Error executing Python file:', error);
+      });
+    });
+  </script>
+</body>
+</html>
